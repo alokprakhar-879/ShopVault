@@ -88,6 +88,21 @@ npm run dev
 
 App: http://127.0.0.1:5173
 
+## Deploy on Vercel
+
+The root `vercel.json` defines two Vercel Services: a FastAPI backend rooted at
+`backend/` and a Vite frontend rooted at `frontend/`. The frontend is served
+for all non-API paths; `/api/*` is routed to FastAPI. The browser calls the
+same-origin `/api` path, so no service binding is needed.
+
+Before deploying, configure the backend service's environment variables in
+Vercel. `DATABASE_URL` must point to a persistent, externally hosted PostgreSQL
+database; the local SQLite file and Docker Compose database are for development,
+not Vercel persistence. Set `ADMIN_EMAIL`, `ADMIN_PASSWORD`, and
+`ADMIN_ACCESS_KEY` to deployment-specific values. The remaining options are
+documented in `backend/.env.example`. No `VITE_API_URL` is needed for this
+single-domain routing setup.
+
 ### Demo logins
 
 | Email | Role |
